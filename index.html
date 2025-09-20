@@ -1,10 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>dumpthis.sh</title>
-  </head>
-  <body>
-    <h1>dumpthis.sh</h1>
-    <p>coming soon...</p>
-  </body>
+<head>
+  <title>dumpthis.sh</title>
+  <style>
+    body {
+      background: linear-gradient(180deg, #2a0000, #660000);
+      color: #ff4d4d;
+      font-family: monospace;
+      margin: 0;
+      padding: 2em;
+    }
+    h1 {
+      font-size: 4em;
+      text-align: center;
+      text-shadow: 0 0 5px #ff4d4d, 0 0 15px #ff1a1a;
+      animation: flicker 2s infinite alternate;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      100% { opacity: 0.8; }
+    }
+    .links {
+      text-align: center;
+      margin-top: 2em;
+    }
+    .links a {
+      color: #ff8080;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .links a:hover {
+      text-shadow: 0 0 5px #fff, 0 0 10px #ff4d4d;
+    }
+    /* subtle binary background */
+    body::before {
+      content: "0100101010010101";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      font-size: 2em;
+      color: rgba(255,77,77,0.05);
+      line-height: 1.2;
+      white-space: pre;
+      z-index: -1;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <h1>MAROON</h1>
+  <div class="links">
+    <a href="logs/">logs</a> | 
+    <a href="stories/">stories</a> | 
+    <a href="art/">art</a>
+  </div>
+  <p style="text-align:center; margin-top:3em;">[SYSTEM NOTICE] Archive unstable. Fragments incoming.</p>
+</body>
 </html>
