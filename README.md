@@ -23,7 +23,7 @@ If your fragment fits, it’ll be merged.
 Creative Commons **BY-NC-SA 4.0**.  
 Share, remix, expand.
 
-- M
+- V
 ---
 
 (Mar00n is a fictional cyberpunk universe. Mar00n book 1 is available at the end of September 2025.)
