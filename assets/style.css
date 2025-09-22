@@ -93,6 +93,8 @@
       font-size:1.1em;
       letter-spacing:.03em;
     }
-    .panel a{ color: var(--link-alt); text-decoration: none; }
-    .panel a:hover{ text-shadow: 0 0 10px #fff, 0 0 20px var(--red); }
+    .panel a {
+        color: #66ccff;
+        text-decoration: none;
+    }
 </style>
