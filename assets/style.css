@@ -100,4 +100,7 @@
     .panel a:hover {
         text-shadow: 0 0 5px #ff4d4d;
     }
+  .substratum { filter: hue-rotate(120deg) saturate(1.2); }
+  .substratum .title,
+  .substratum .notices { color:#00ff88; text-shadow:0 0 10px #00ff88; }
 </style>
