@@ -77,4 +77,22 @@
     .notices a:hover {
         text-shadow: 0 0 5px #ff4d4d;
     }
-  </style>
+    /* About panel */
+    .panel{
+      width:min(900px, 90vw);
+      margin: 2em auto 4em;
+      padding: 1.25em 1.5em;
+      background: rgba(0,0,0,0.75);
+      border:1px solid var(--red);
+      color: var(--red);
+      text-shadow: 0 0 5px var(--red), 0 0 15px var(--red-bright);
+      line-height:1.5;
+    }
+    .panel h2{
+      margin:1em 0 .25em;
+      font-size:1.1em;
+      letter-spacing:.03em;
+    }
+    .panel a{ color: var(--link-alt); text-decoration: none; }
+    .panel a:hover{ text-shadow: 0 0 10px #fff, 0 0 20px var(--red); }
+</style>
