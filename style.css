@@ -1,0 +1,80 @@
+<style>
+    .ibm-plex-mono-bold {
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    body {
+      background: linear-gradient(180deg, #2a0000, #660000);
+      background-attachment: fixed;
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: #ff4d4d;
+      font-family: monospace;
+      margin: 0;
+      padding: 2em;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-family: "IBM Plex Mono";
+      font-size: 12em;
+      text-align: center;
+      text-shadow: 0 0 10px #ff4d4d, 0 0 15px #ff1a1a;
+      animation: flicker 3s infinite alternate;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      89% { opacity: 1; }
+      90% { opacity: 0; }
+      95% { opacity: .2; }
+      100% { opacity: 0; }
+    }
+    .links {
+        font-size: 2em;
+        text-align: center;
+    }
+    .links a {
+      color: #ff8080;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .links a:hover {
+      text-shadow: 0 0 5px #fff, 0 0 10px #ff4d4d;
+    }
+    /* subtle binary background */
+    body::before {
+      content: "0101100101101111011101010010011101110010011001010010000001001101010010010100111001000101";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      font-size: 2em;
+      color: rgba(255,77,77,0.05);
+      line-height: 1.2;
+      white-space: pre;
+      z-index: -1;
+      overflow: hidden;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .notices {
+        font-family: monospace;
+        text-align: center;
+    }
+    .notices a {
+        color: #66ccff;
+        text-decoration: none;
+    }
+    .notices a:hover {
+        text-shadow: 0 0 5px #ff4d4d;
+    }
+  </style>
