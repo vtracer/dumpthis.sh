@@ -2,7 +2,7 @@
 
 **THIS IS NOT LIVE UNTIL THE BOOK IS LIVE**
 
-Fragments leaks and rotting data. This is where it ends up.
+Fragment leaks and rotting data. This is where it ends up.
 
 **Official domain:** [https://dumpthis.sh](https://dumpthis.sh)  
 Any fork claiming otherwise is bullsh*t. Donations are never accepted outside the official site.
