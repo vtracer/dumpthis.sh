@@ -21,10 +21,6 @@ A public archive made for the resistance of corrupted logs and found stories ins
 
 If your fragment fits, it’ll be merged.
 
-## License
-Creative Commons **BY-NC-SA 4.0**.  
-Share and expand.
-
 - V
 ---
 
