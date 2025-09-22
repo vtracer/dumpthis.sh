@@ -97,4 +97,7 @@
         color: #66ccff;
         text-decoration: none;
     }
+    .panel a:hover {
+        text-shadow: 0 0 5px #ff4d4d;
+    }
 </style>
