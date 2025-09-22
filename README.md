@@ -1,5 +1,7 @@
 # dumpthis.sh
 
+**THIS IS NOT LIVE UNTIL THE BOOK IS LIVE**
+
 Fragments leaks and rotting data. This is where it ends up.
 
 **Official domain:** [https://dumpthis.sh](https://dumpthis.sh)  
