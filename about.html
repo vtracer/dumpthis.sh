@@ -53,17 +53,8 @@
         <a href="https://dumpthis.sh">← back</a>
         </p>
     </div>
-
-    <script>
-        const c = document.getElementById("matrix"), x = c.getContext("2d");
-        function size(){ c.width = innerWidth; c.height = innerHeight } size(); addEventListener("resize", size);
-        const letters="01", fs=14; let cols=Math.floor(c.width/fs), drops=Array(cols).fill(1);
-        setInterval(()=>{ x.fillStyle="rgba(0,0,0,0.09)"; x.fillRect(0,0,c.width,c.height);
-            x.fillStyle="#ff4d4d"; x.font=fs+"px monospace";
-            for(let i=0;i<drops.length;i++){ const t=letters[Math.floor(Math.random()*letters.length)];
-            x.fillText(t,i*fs,drops[i]*fs); if(drops[i]*fs>c.height&&Math.random()>0.975)drops[i]=0; drops[i]++; }
-        },35);
-    </script>
-    <script src="assets/konami.js" defer></script>
+  <script src="assets/matrix.js" defer></script>
+  <script src="assets/konami.js" defer></script>
+  <script src="assets/cursor.js" defer></script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 (function () {
-    //You are ruining the surprise.
-  // up up down down left right left right b a
+  //oh hi
   const CODE = [38,38,40,40,37,39,37,39,66,65];
   let i = 0;
 
@@ -15,7 +14,6 @@
     }, null);
   }
 
-  // Apply saved preference on load
   function applyFromCookie() {
     const v = getCookie('substratum');
     if (v === '1') document.body.classList.add('substratum');
@@ -23,7 +21,6 @@
   }
   applyFromCookie();
 
-  // Listen for the key sequence and toggle + persist
   window.addEventListener('keydown', (e) => {
     i = (e.keyCode === CODE[i]) ? i + 1 : 0;
     if (i === CODE.length) {

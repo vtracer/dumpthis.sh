@@ -6,7 +6,7 @@
     }
 
     body {
-      background: linear-gradient(180deg, #2a0000, #660000);
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
       background-attachment: fixed;
       background-size: cover;
       background-repeat: no-repeat;
@@ -15,6 +15,21 @@
       margin: 0;
       padding: 2em;
       min-height: 100vh;
+    }
+
+    :root {
+      --bg1: #2a0000;
+      --bg2: #660000;
+      --red: #ff4d4d;
+      --red-bright: #ff1a1a;
+      --notice: #ff4dff; 
+      --notice-bright: #ff99ff;
+    }
+
+    .title {
+      color: var(--red);
+      text-shadow: 0 0 10px var(--red), 0 0 15px var(--red-bright);
+      animation: flicker 3s infinite alternate;
     }
 
     h1 {
@@ -36,17 +51,19 @@
         text-align: center;
     }
     .links a {
-      color: #ff8080;
+      color: var(--red);
       text-decoration: none;
       margin: 0 10px;
     }
     .links a:hover {
-      text-shadow: 0 0 5px #fff, 0 0 10px #ff4d4d;
+      text-shadow: 0 0 5px #fff, 0 0 10px var(--red-bright);
     }
-    /* subtle binary background */
+
     body::before {
       content: "0101100101101111011101010010011101110010011001010010000001001101010010010100111001000101";
       position: fixed;
+      color: var(--red);
+      opacity: 0.05;
       top: 0;
       left: 0;
       width: 100%;
@@ -69,15 +86,18 @@
     .notices {
         font-family: monospace;
         text-align: center;
+        color: #66ccff;
+        text-shadow: 0 0 5px var(--red), 0 0 15px var(--red-bright);
     }
     .notices a {
-        color: #66ccff;
+        color: var(--notice);
         text-decoration: none;
+        text-shadow: 0 0 5px var(--notice), 0 0 15px var(--notice-bright);
     }
     .notices a:hover {
         text-shadow: 0 0 5px #ff4d4d;
     }
-    /* About panel */
+
     .panel{
       width:min(900px, 90vw);
       margin: 2em auto 4em;
@@ -100,7 +120,89 @@
     .panel a:hover {
         text-shadow: 0 0 5px #ff4d4d;
     }
-  .substratum { filter: hue-rotate(120deg) saturate(1.2); }
-  .substratum .title,
-  .substratum .notices { color:#00ff88; text-shadow:0 0 10px #00ff88; }
+    .substratum {
+        --bg1: #001a00;    
+        --bg2: #004d26;
+        --red: #00ff88;      
+        --red-bright: #11ffbb;
+        --notice a: #cc66ff;     
+        --notice-bright a: #e699ff;
+    }
+
+    .substratum .title,
+    .substratum .notices { color: var(--red); text-shadow: 0 0 10px var(--red); }
+
+    .substratum .cursor { color: var(--red); }
+    .substratum .cursor.link { color: var(--red); transform: translate(-50%, -50%) scale(1.35); }
+
+
+    /* hide OS cursor on desktop, but not in text fields */
+    body.cursor-hidden { cursor: none; }
+    body.cursor-hidden a,
+    body.cursor-hidden button { cursor: none; }
+    body.cursor-hidden [role="button"]
+    body.cursor.hidden label {cursor:none !important;}
+    input, textarea { cursor: text; }
+
+    /* custom crosshair cursor */
+    .cursor {
+      position: fixed;
+      width: 22px;
+      height: 22px;
+      pointer-events: none;
+      z-index: 9999; 
+      color: #ff4d4d;                
+      mix-blend-mode: difference;     
+      transform: translate(-50%, -50%);
+      transition: none;
+    }
+
+    /* crosshair lines */
+    .cursor::before, .cursor::after {
+      content: "";
+      position: absolute;
+      background: currentColor;
+    }
+    .cursor::before {                 /* horizontal */
+      left: 0; top: 50%;
+      width: 100%; height: 2px;
+      transform: translateY(-50%);
+    }
+    .cursor::after {                  /* vertical */
+      top: 0; left: 50%;
+      height: 100%; width: 2px;
+      transform: translateX(-50%);
+    }
+
+    /* hover feedback on links/buttons */
+    .cursor.link {
+      transform: translate(-50%, -50%) scale(1.35);
+      color: #ff4d4d;
+    }
+
+    /* secret theme color */
+    .substratum .cursor { color: #00ff88; } 
+    .substratum .cursor.link { 
+      color: #00ff88; 
+      transform: translate(-50%, -50%) scale(1.35);
+    } 
+
+    /* override MailerLite embed colors */
+.ml-form-embedContainer input,
+.ml-form-embedContainer textarea,
+.ml-form-embedContainer select,
+.ml-form-embedContainer button {
+  background-color: #000 !important;
+  color: var(--red) !important;
+}
+
+.ml-form-embedContainer input::placeholder,
+.ml-form-embedContainer textarea::placeholder {
+  color: var(--red) !important;
+}
+
+.ml-form-embedContainer button {
+  text-transform: uppercase;
+}
+
 </style>

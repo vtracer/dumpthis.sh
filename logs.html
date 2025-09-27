@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>dumpthis.sh</title>
+  <style>
+    body {
+      background: linear-gradient(180deg, #2a0000, #660000);
+      background-attachment: fixed;
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: #ff4d4d;
+      font-family: monospace;
+      margin: 0;
+      padding: 2em;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 12em;
+      text-align: center;
+      text-shadow: 0 0 5px #ff4d4d, 0 0 15px #ff1a1a;
+      animation: flicker 3s infinite alternate;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      89% { opacity: 1; }
+      90% { opacity: 0; }
+      95% { opacity: .2; }
+      100% { opacity: 0; }
+    }
+    .links {
+        font-size: 2em;
+        text-align: center;
+    }
+    .links a {
+      color: #ff8080;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .links a:hover {
+      text-shadow: 0 0 5px #fff, 0 0 10px #ff4d4d;
+    }
+   
+    body::before {
+      content: "0101100101101111011101010010011101110010011001010010000001001101010010010100111001000101";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      font-size: 2em;
+      color: rgba(255,77,77,0.05);
+      line-height: 1.2;
+      white-space: pre;
+      z-index: -1;
+      overflow: hidden;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .notices {
+        font-family: monospace;
+        text-align: center;
+    }
+    .notices a {
+        color: #66ccff;
+        text-decoration: none;
+    }
+    .notices a:hover {
+        text-shadow: 0 0 5px #ff4d4d;
+    }
+  </style>
+</head>
+<body>
+    <div class="terminal"></div> 
+        <canvas id="matrix"></canvas>
+        <h1>MAROON</h1>
+    <div class="notices">
+        <p style="text-align:center; margin-top:3em;">[coming soon] → <a href="http://dumpthis.sh">← back to root</a></p>
+        <p style="text-align:center; margin-top:1em;">[BOOK LINK] → <a href="https://www.amazon.com/Maroon-Mar00n-Book-1-Tracer-ebook/dp/B0FLXJ9GRF" target="_blank">Amazon</a></p>
+        <p style="text-align:center; margin-top:1em;">[CONTACT] → <a href="mailto:v@dumpthis.sh">v@dumpthis.sh</a></p>
+    </div>
+    <script>
+        const canvas = document.getElementById("matrix");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = "01";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let x = 0; x < columns; x++) drops[x] = 1;
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.09)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#ff4d4d";
+            ctx.font = fontSize + "px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = letters.charAt(Math.floor(Math.random() * letters.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+            }
+            drops[i]++;
+            }
+            }
+            setInterval(draw, 35);
+
+            window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            });
+    </script>
+</body>
+</html>
