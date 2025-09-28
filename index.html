@@ -27,13 +27,18 @@
 <body>
     <div class="terminal"></div> 
         <canvas id="matrix"></canvas>
+        <div id="resource-monitor"></div>
         <h1 class="title" style="margin-top: 50px;margin-bottom: 25px;">MAR00N</h1>
         <div class="links">
-        <!--<a href="logs/">logs</a> | 
-        <a href="stories/">stories</a> | 
-        <a href="art/">art</a>-->
-        <a href="about.html">about</a>
-    </div>
+          <span class="toggle">+</span>
+          <span class="root" tabindex="0" aria-expanded="false">root/</span>
+          <ul class="dropdown">
+            <li><a href="about.html">context/</a></li>
+            <li><a href="dump.html">dump/</a></li>
+            <li><a href="docs/Prologue.pdf" target="_blank">docs/</a></li>
+          </ul>
+      </div>
+        </div>
     <div class="notices">
         <p style="text-align:center; margin-top:3em;">[DOC AVAILABLE] → <a href="docs/Prologue.pdf" target="_blank">Read Prologue</a></p>
         <p style="text-align:center; margin-top:1em;">[BOOK LINK] → <a href="https://www.amazon.com/Maroon-Mar00n-Book-1-Tracer-ebook/dp/B0FLXJ9GRF" target="_blank">Amazon</a></p>
@@ -798,15 +803,23 @@
       b.style.setProperty('color', c, 'important');
     });
   }
-  // update now, and whenever .substratum toggles
+
   updateML();
   new MutationObserver(updateML).observe(document.body, {attributes:true, attributeFilter:['class']});
 })();
 </script>
+<footer class="system-footer">
+  dumpthis.sh:~$ <span class="cursor-blink">_</span>
+  <div id="future-clock" aria-hidden="true"></div>
+</footer>
 
  <!--Secret-->
   <script src="assets/matrix.js" defer></script>
   <script src="assets/konami.js" defer></script>
   <script src="assets/cursor.js" defer></script>
+  <script src="assets/oto0.js" defer></script>
+  <script src="assets/menu.js" defer></script>
+  <script src="assets/time.js" defer></script>
+  <script src="assets/monitor.js" defer></script>
 </body>
 </html>

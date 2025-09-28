@@ -41,3 +41,21 @@
 
   setInterval(draw, 35);
 })();
+// chaos
+(function chaos() {
+  if (Math.random() < 0.07) {
+    const jitter = () => {
+      if (Math.random() < 0.33) {
+        const b = document.body;
+        const prev = b.style.filter;
+        b.style.filter = 'hue-rotate(40deg) contrast(140%)';
+        setTimeout(() => { b.style.filter = prev; }, 900);
+      }
+    };
+    let n = 0;
+    const id = setInterval(() => {
+      jitter();
+      if (++n > 5) clearInterval(id);
+    }, 3500);
+  }
+})();
