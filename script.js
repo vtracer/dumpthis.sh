@@ -1,6 +1,6 @@
 // THE NARRATIVE SCRIPT (Melissa's Voice)
 const textSequence = [
-  "AUTHENTICATING USER: M.HOLLOWAY.EXT_34...",
+  "AUTHENTICATING USER...",
   "ACCESS GRANTED.",
   "----------------------------------------",
   "SYSTEM MESSAGE:",
