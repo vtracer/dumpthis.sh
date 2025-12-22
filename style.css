@@ -1,0 +1,109 @@
+/* --- PHREAKER AESTHETIC --- */
+:root {
+  --term-white: #e0e0e0;
+  --term-dim: #666;
+  --bg-color: #050505;
+  --cursor-color: #e0e0e0;
+  --font-stack: "Courier New", Courier, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background-color: var(--bg-color);
+  color: var(--term-white);
+  font-family: var(--font-stack);
+  font-size: 16px;
+  padding: 40px;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* SCANLINES (Old monitor feel) */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* TERMINAL WINDOW */
+.terminal-window {
+  width: 100%;
+  max-width: 900px;
+  height: 80vh;
+  border: 2px solid var(--term-white);
+  padding: 20px;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar hiding */
+.terminal-window::-webkit-scrollbar { display: none; }
+.terminal-window { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ASCII HEADER */
+.ascii-art {
+  font-size: 10px;
+  line-height: 10px;
+  white-space: pre;
+  margin-bottom: 30px;
+  font-weight: bold;
+  color: var(--term-white);
+}
+
+/* Text */
+p { margin-bottom: 15px; max-width: 800px; }
+
+.dim { color: var(--term-dim); }
+.blink { animation: blinker 1s step-end infinite; }
+@keyframes blinker { 50% { opacity: 0; } }
+
+/* Commands */
+.command-list {
+  margin-top: 40px;
+  border-top: 1px dashed var(--term-dim);
+  padding-top: 20px;
+}
+
+.cmd-link {
+  display: block;
+  color: var(--term-white);
+  text-decoration: none;
+  margin-bottom: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cmd-link:hover {
+  background-color: var(--term-white);
+  color: var(--bg-color);
+}
+
+.cmd-link::before { content: "> EXECUTE: "; color: var(--term-dim); }
+
+.cmd-desc {
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  color: #888;
+}
+
+.cmd-disabled {
+  color: #888;
+  pointer-events: none;
+}
+
+/* Typing output */
+#output { white-space: pre-wrap; }
+
+/* Prompt */
+.prompt { margin-top: 20px; }
+.prompt-label { color: var(--term-dim); }
