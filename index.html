@@ -1,61 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>DUMPTHIS.SH</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #00ff41;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        .terminal {
-            border: 1px solid #1a1a1a;
-            padding: 50px;
-            background: #000;
-            max-width: 900px;
-        }
-        pre {
-            font-size: 10px;
-            line-height: 1;
-            color: #00ff41;
-            margin: 0;
-            opacity: 0.9;
-        }
-        .quote-block {
-            margin-top: 40px;
-            font-size: 16px;
-            border-left: 1px solid #00ff41;
-            padding-left: 20px;
-            color: #00ff41;
-        }
-        .status {
-            margin-top: 30px;
-            font-size: 11px;
-            color: #004400;
-            letter-spacing: 2px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROOT ACCESS: M.HOLLOWAY</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-    <div class="terminal">
-        <pre>
-      :::::::::  :::    ::: ::::    ::::  :::::::::  ::::::::::: :::    ::: ::::::::::: ::::::::      ::::::::  :::    ::: 
-     :+:    :+: :+:    :+: +:+:+: :+:+:+ :+:    :+:     :+:     :+:    :+:     :+:    :+:    :+:    :+:    :+: :+:    :+:  
-    +:+    +:+ +:+    +:+ +:+ +:+:+ +:+ +:+    +:+     +:+     +:+    +:+     +:+    +:+           +:+        +:+    +:+   
-   +#+    +:+ +#+    +:+ +#+  +:+  +#+ +#++:++#+      +#+     +#++:++#++     +#+    +#++:++#++    +#++:++#++ +#++:++#++    
-  +#+    +#+ +#+    +#+ +#+       +#+ +#+            +#+     +#+    +#+     +#+           +#+           +#+ +#+    +#+     
- #+#    #+# #+#    #+# #+#       #+# #+#            #+#     #+#    #+#     #+#    #+    #+#    #+    #+# #+#    #+#      
-#########   ########  ###       ### ###            ###     ###    ### ########### ########      ########  ###    ###       
-        </pre>
+  <div class="terminal-window">
+    <div class="ascii-art">
+██████╗ ██╗   ██╗███╗   ███╗██████╗ ████████╗██╗  ██╗██╗███████╗    ███████╗██╗  ██╗
+██╔══██╗██║   ██║████╗ ████║██╔══██╗╚══██╔══╝██║  ██║██║██╔════╝    ██╔════╝██║  ██║
+██║  ██║██║   ██║██╔████╔██║██████╔╝   ██║   ███████║██║███████╗    ███████╗███████║
+██║  ██║██║   ██║██║╚██╔╝██║██╔═══╝    ██║   ██╔══██║██║╚════██║    ╚════██║██╔══██║
+██████╔╝╚██████╔╝██║ ╚═╝ ██║██║        ██║   ██║  ██║██║███████║    ███████║██║  ██║
+╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝        ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝    ╚══════╝╚═╝  ╚═╝
     </div>
 
+    <div id="output"></div>
+
+    <div class="command-list" id="commands" style="display: none;">
+      <p class="dim">AVAILABLE TARGETS:</p>
+
+      <a href="https://dumpthis.sh" target="_blank" class="cmd-link">
+        VIEW_PAYLOAD (dumpthis.sh)
+      </a>
+      <div class="cmd-desc">
+        // The raw data. Logs, schematics, and proof of the harvest.
+        // "Every byte here convicts them."
+      </div>
+
+      <a href="https://newlife2084.com" target="_blank" class="cmd-link">
+        MONITOR_TARGET (newlife2084.com)
+      </a>
+      <div class="cmd-desc">
+        // The corporate facade. Watch Reiss spin the narrative in real-time.
+        // "Perpetuity Guaranteed."
+      </div>
+
+      <a href="#" class="cmd-link cmd-disabled">
+        READ_NARRATIVE_LOG (MAROON)
+      </a>
+      <div class="cmd-desc">
+        // The compiled history of Sarah Walker & Marcus Wei.
+        // Transcribed by V Tracer.
+        // STATUS: AVAILABLE NOW.
+      </div>
+    </div>
+
+    <div class="prompt">
+      <span class="prompt-label">root@ext34:~$</span> <span class="blink">█</span>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
