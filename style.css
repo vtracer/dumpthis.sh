@@ -9,6 +9,30 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html, body{
+  overflow-x: hidden;
+}
+
+.terminal-window{
+  width: 100%;
+  max-width: 100%;
+}
+
+.ascii-wrap{
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;          /* prevents sideways scroll */
+}
+
+.ascii-art{
+  margin: 0 0 16px;
+  padding: 0;
+  white-space: pre;
+  display: inline-block;
+  transform-origin: left top; /* important for scaling */
+  line-height: 1.05;
+}
+
 body {
   background-color: var(--bg-color);
   color: var(--term-white);
