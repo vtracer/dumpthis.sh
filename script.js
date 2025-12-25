@@ -25,9 +25,14 @@ const textSequence = [
 const outputDiv = document.getElementById("output");
 const commandDiv = document.getElementById("commands");
 
+if (!outputDiv) console.error('Missing #output element');
+if (!commandDiv) console.error('Missing #commands element');
+
 let lineIndex = 0;
 
 function typeLine() {
+  if (!outputDiv) return;
+
   if (lineIndex < textSequence.length) {
     const line = textSequence[lineIndex];
     const row = document.createElement("div");
@@ -41,7 +46,8 @@ function typeLine() {
     outputDiv.appendChild(row);
 
     // Keep the "terminal" scrolled to the bottom as it types
-    outputDiv.parentElement.scrollTop = outputDiv.parentElement.scrollHeight;
+    const scroller = outputDiv.parentElement;
+    if (scroller) scroller.scrollTop = scroller.scrollHeight;
 
     // Randomize typing speed for realism
     const typingSpeed = Math.random() * 50 + 30;
@@ -50,12 +56,13 @@ function typeLine() {
     setTimeout(typeLine, typingSpeed);
   } else {
     // Reveal commands when done
-    commandDiv.style.display = "block";
-    outputDiv.parentElement.scrollTop = outputDiv.parentElement.scrollHeight;
+    if (commandDiv) commandDiv.style.display = "block";
+    const scroller = outputDiv.parentElement;
+    if (scroller) scroller.scrollTop = scroller.scrollHeight;
   }
 }
 
-function fitAsciiTitle(){
+function fitAsciiTitle() {
   const el = document.getElementById("asciiTitle");
   if (!el) return;
 
@@ -76,8 +83,8 @@ function fitAsciiTitle(){
   wrap.style.height = `${el.scrollHeight * scale}px`;
 }
 
-window.addEventListener("load", fitAsciiTitle);
+window.addEventListener("load", () => {
+  fitAsciiTitle();
+  setTimeout(typeLine, 500);
+});
 window.addEventListener("resize", fitAsciiTitle);
-
-// Start the boot sequence
-setTimeout(typeLine, 500);
