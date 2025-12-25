@@ -15,7 +15,16 @@ html, body{
 
 .terminal-window{
   width: 100%;
-  max-width: 100%;
+  max-width: 900px;
+  height: 80vh;
+  border: 2px solid var(--term-white);
+  padding: 20px;
+
+  overflow-y: auto;
+  overflow-x: hidden; /* <-- this is the missing “stop stretching” bit */
+
+  position: relative;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .ascii-wrap{
