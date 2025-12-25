@@ -69,22 +69,29 @@ function fitAsciiTitle() {
   const wrap = el.parentElement;
   if (!wrap) return;
 
-  // reset
+  // reset first
   el.style.transform = "scale(1)";
+  wrap.style.height = "auto";
 
-  // compute scale needed to fit width
-  const wrapW = wrap.clientWidth;
-  const elW = el.scrollWidth;
+  requestAnimationFrame(() => {
+    const wrapW = wrap.clientWidth;
+    const elW = el.scrollWidth;
 
-  const scale = (elW > 0) ? Math.min(1, wrapW / elW) : 1;
-  el.style.transform = `scale(${scale})`;
+    const scale = elW > 0 ? Math.min(1, wrapW / elW) : 1;
+    el.style.transform = `scale(${scale})`;
 
-  // lock wrap height so scaling doesn't collapse the layout
-  wrap.style.height = `${el.scrollHeight * scale}px`;
+    // lock height so content below doesn't overlap
+    wrap.style.height = `${el.scrollHeight * scale}px`;
+  });
 }
 
 window.addEventListener("load", () => {
   fitAsciiTitle();
   setTimeout(typeLine, 500);
 });
+
+// extra: fonts/layout sometimes settle after load
+setTimeout(fitAsciiTitle, 50);
+setTimeout(fitAsciiTitle, 250);
+
 window.addEventListener("resize", fitAsciiTitle);
