@@ -46,11 +46,9 @@ function typeLine() {
     row.textContent = line;
     outputDiv.appendChild(row);
 
-    // Keep the "terminal" scrolled to the bottom as it types
     const scroller = outputDiv.parentElement;
     if (scroller) scroller.scrollTop = scroller.scrollHeight;
 
-    // Randomize typing speed for realism
     const typingSpeed = Math.random() * 50 + 30;
 
     lineIndex++;
@@ -81,7 +79,6 @@ function fitAsciiTitle() {
     const scale = elW > 0 ? Math.min(1, wrapW / elW) : 1;
     el.style.transform = `scale(${scale})`;
 
-    // lock height so content below doesn't overlap
     wrap.style.height = `${el.scrollHeight * scale}px`;
   });
 }
@@ -91,7 +88,6 @@ window.addEventListener("load", () => {
   setTimeout(typeLine, 500);
 });
 
-// extra: fonts/layout sometimes settle after load
 setTimeout(fitAsciiTitle, 50);
 setTimeout(fitAsciiTitle, 250);
 
