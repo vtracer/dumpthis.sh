@@ -108,6 +108,11 @@ p { margin-bottom: 15px; max-width: 800px; }
   pointer-events: none;
 }
 
+#viewport, .manuscript-text{
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* Typing output */
 #output { white-space: pre-wrap; }
 
