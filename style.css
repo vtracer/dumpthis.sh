@@ -114,3 +114,11 @@ p { margin-bottom: 15px; max-width: 800px; }
 /* Prompt */
 .prompt { margin-top: 20px; }
 .prompt-label { color: var(--term-dim); }
+
+@media (max-width: 560px){
+  h1{
+    letter-spacing: 1.5px;   /* was 5px, that’s the crime */
+    font-size: 1.4rem;       /* optional: keeps it readable */
+    line-height: 1.15;
+  }
+}
