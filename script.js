@@ -55,5 +55,29 @@ function typeLine() {
   }
 }
 
+function fitAsciiTitle(){
+  const el = document.getElementById("asciiTitle");
+  if (!el) return;
+
+  const wrap = el.parentElement;
+  if (!wrap) return;
+
+  // reset
+  el.style.transform = "scale(1)";
+
+  // compute scale needed to fit width
+  const wrapW = wrap.clientWidth;
+  const elW = el.scrollWidth;
+
+  const scale = (elW > 0) ? Math.min(1, wrapW / elW) : 1;
+  el.style.transform = `scale(${scale})`;
+
+  // lock wrap height so scaling doesn't collapse the layout
+  wrap.style.height = `${el.scrollHeight * scale}px`;
+}
+
+window.addEventListener("load", fitAsciiTitle);
+window.addEventListener("resize", fitAsciiTitle);
+
 // Start the boot sequence
 setTimeout(typeLine, 500);
