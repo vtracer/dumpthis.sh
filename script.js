@@ -83,6 +83,70 @@ function fitAsciiTitle() {
   });
 }
 
+function setupShareLinks() {
+  const bsky = document.getElementById("shareBsky");
+  const x = document.getElementById("shareX");
+  const nativeBtn = document.getElementById("shareNative");
+
+  if (!bsky && !x && !nativeBtn) return;
+
+  // Avoid sharing localhost / file:// during dev
+  const isDev =
+    location.hostname === "localhost" ||
+    location.hostname === "127.0.0.1" ||
+    location.protocol === "file:";
+
+  const shareUrl = isDev ? "https://dumpthis.sh" : window.location.href;
+
+  // BLUESKY: newlines are fine
+  const bskyText =
+    "JOIN_RESISTANCE // dumpthis.sh\n" +
+    "They aren’t preserving us. They are feeding on us.\n" +
+    "READ: MAR00N\n" +
+    shareUrl;
+
+  // X: keep it tighter (X often collapses newlines anyway)
+  const xText =
+    "JOIN_RESISTANCE // dumpthis.sh — They aren’t preserving us. They are feeding on us. READ: MAR00N";
+
+  if (bsky) {
+    bsky.href =
+      "https://bsky.app/intent/compose?text=" +
+      encodeURIComponent(bskyText);
+  }
+
+  if (x) {
+    x.href =
+      "https://x.com/intent/post?text=" +
+      encodeURIComponent(xText) +
+      "&url=" +
+      encodeURIComponent(shareUrl);
+  }
+
+  if (nativeBtn) {
+    nativeBtn.addEventListener("click", async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: "dumpthis.sh // JOIN_RESISTANCE",
+            text: xText,
+            url: shareUrl
+          });
+          return;
+        }
+
+        await navigator.clipboard.writeText(shareUrl);
+        nativeBtn.textContent = "[✓] COPIED";
+        setTimeout(() => (nativeBtn.textContent = "[↗] SHARE"), 1200);
+      } catch (err) {
+        console.warn("Share failed:", err);
+      }
+    });
+  }
+}
+
+window.addEventListener("load", setupShareLinks);
+
 window.addEventListener("load", () => {
   fitAsciiTitle();
   setTimeout(typeLine, 500);
