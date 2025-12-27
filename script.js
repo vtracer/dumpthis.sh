@@ -5,11 +5,10 @@ const textSequence = [
   "----------------------------------------",
   "SYSTEM MESSAGE:",
   "",
-  "They think I'm dead.",
-  "They think they scrubbed the archives.",
+  "They think they deleted me. They think they scrubbed the archives.",
   "They forgot one terminal.",
   "",
-  "But instead I found the logs.",
+  "I found the logs. The 'Empathy Engine'. The 'Yield Index'.",
   "They aren't preserving us. They are feeding on us.",
   "",
   "I have compiled the evidence into a narrative file: 'MAROON'.",
@@ -17,7 +16,7 @@ const textSequence = [
   "and the fragmentation of Journalist M. Wei.",
   "",
   "The mirror is live. The seed is spreading.",
-  "Soon you will have three invites. Use them wisley.",
+  "You have three invites. Use them.",
   "",
   "CHOOSE YOUR DESTINATION:",
   ""
@@ -25,134 +24,213 @@ const textSequence = [
 
 const outputDiv = document.getElementById("output");
 const commandDiv = document.getElementById("commands");
+const promptLine = document.getElementById("promptLine"); // add id="promptLine" to your prompt div
+const asciiTitle = document.getElementById("asciiTitle");
 
-if (!outputDiv) console.error('Missing #output element');
-if (!commandDiv) console.error('Missing #commands element');
+// Safety: don't crash silently
+if (!outputDiv) console.error("Missing #output element");
+if (!commandDiv) console.error("Missing #commands element");
+
+// Boot pacing
+const PACE = {
+  baseMin: 55,      // typing speed range
+  baseMax: 95,
+  lineGap: 220,     // pause after each line so it's readable
+  authHang: 1200,   // extra hang after AUTHENTICATING
+  grantedHang: 650, // extra hang after ACCESS GRANTED
+  startDelay: 450   // initial "power-on" delay
+};
 
 let lineIndex = 0;
+let skipBoot = false;
+let bootTimer = null;
 
-function typeLine() {
+function rand(min, max){
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function styleRow(row, line){
+  if (line.includes("AUTHENTICATING")) row.style.color = "#666";
+  if (line.includes("ACCESS GRANTED")) row.style.color = "#fff";
+  if (line.includes("MAROON")) row.style.fontWeight = "bold";
+}
+
+function appendLine(line){
+  if (!outputDiv) return;
+  const row = document.createElement("div");
+  styleRow(row, line);
+  row.textContent = line;
+  outputDiv.appendChild(row);
+}
+
+function clearBootTimer(){
+  if (bootTimer) clearTimeout(bootTimer);
+  bootTimer = null;
+}
+
+function showPrompt(){
+  if (!promptLine) return;
+  promptLine.hidden = false;
+  promptLine.setAttribute("aria-hidden", "false");
+  // tiny transition hook if you added CSS .is-live
+  requestAnimationFrame(() => promptLine.classList.add("is-live"));
+}
+
+function revealCommands(){
+  if (commandDiv) commandDiv.style.display = "block";
+  showPrompt();
+  // DO NOT force scroll. Let them scroll.
+  loadBskyFeed();
+}
+
+function finishInstant(){
+  clearBootTimer();
+  // Dump all remaining lines immediately
+  while (lineIndex < textSequence.length){
+    appendLine(textSequence[lineIndex]);
+    lineIndex++;
+  }
+  revealCommands();
+}
+
+// Types line-by-line, with deliberate pauses
+function typeNext(){
   if (!outputDiv) return;
 
-  if (lineIndex < textSequence.length) {
-    const line = textSequence[lineIndex];
-    const row = document.createElement("div");
+  if (skipBoot){
+    finishInstant();
+    return;
+  }
 
-    // Styling specific lines
-    if (line.includes("AUTHENTICATING")) row.style.color = "#666";
-    if (line.includes("ACCESS GRANTED")) row.style.color = "#fff";
-    if (line.includes("MAROON")) row.style.fontWeight = "bold";
+  if (lineIndex >= textSequence.length){
+    revealCommands();
+    return;
+  }
 
-    row.textContent = line;
-    outputDiv.appendChild(row);
+  const line = textSequence[lineIndex];
+  appendLine(line);
 
-    const scroller = outputDiv.parentElement;
-    if (scroller) scroller.scrollTop = scroller.scrollHeight;
+  // Determine delay before next line
+  let delay = rand(PACE.baseMin, PACE.baseMax) + PACE.lineGap;
 
-    const typingSpeed = Math.random() * 50 + 30;
+  if (line.includes("AUTHENTICATING")) delay += PACE.authHang;
+  if (line.includes("ACCESS GRANTED")) delay += PACE.grantedHang;
+  if (line === "") delay = 180; // blank lines shouldn't stall too long
 
-    lineIndex++;
-    setTimeout(typeLine, typingSpeed);
-  } else {
-    // Reveal commands when done
-    if (commandDiv) commandDiv.style.display = "block";
-    const scroller = outputDiv.parentElement;
-    if (scroller) scroller.scrollTop = scroller.scrollHeight;
+  lineIndex++;
+  bootTimer = setTimeout(typeNext, delay);
+}
+
+// Spacebar = skip
+function onKeydown(e){
+  // If user is typing in a field, don't hijack
+  const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+  const isTypingField = tag === "input" || tag === "textarea" || tag === "select";
+  if (isTypingField) return;
+
+  if (e.code === "Space"){
+    e.preventDefault(); // stops page from jumping
+    if (!skipBoot){
+      skipBoot = true;
+      finishInstant();
+    }
   }
 }
 
-function fitAsciiTitle() {
-  const el = document.getElementById("asciiTitle");
+window.addEventListener("keydown", onKeydown);
+
+// ---- Bluesky feed (3 posts + link out) ----
+async function loadBskyFeed(){
+  const el = document.getElementById("bskyFeed");
   if (!el) return;
 
-  const wrap = el.parentElement;
+  // SET THIS to your actual Bluesky handle
+  const handle = "mel.dumpthis.sh";
+  const limit = 3;
+
+  // Link out target (your “different website”):
+  // Put whatever you want here (a separate page, another site, etc.)
+  const outUrl = "https://dumpthis.sh/feed"; // <- change this
+
+  const endpoint =
+    "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed" +
+    "?actor=" + encodeURIComponent(handle) +
+    "&limit=" + limit;
+
+  el.innerHTML = `<div class="feed-title">LIVE FEED: @${handle}</div><div class="meta">loading…</div>`;
+
+  try {
+    const res = await fetch(endpoint);
+    if (!res.ok) throw new Error("bad response");
+    const data = await res.json();
+
+    const items = (data.feed || []).slice(0, limit).map((it) => {
+      const post = it.post?.record?.text || "";
+      const created = it.post?.record?.createdAt ? new Date(it.post.record.createdAt) : null;
+      const ts = created ? created.toLocaleString() : "";
+
+      return `
+        <div class="post">
+          <div>&gt; ${escapeHtml(post).replace(/\n/g,"<br>")}</div>
+          <div class="meta">${ts}</div>
+        </div>
+      `;
+    }).join("");
+
+    el.innerHTML =
+      `<div class="feed-title">LIVE FEED: @${handle}</div>` +
+      (items || `<div class="meta">no posts yet</div>`) +
+      `<a class="feed-out" href="${outUrl}" target="_blank" rel="noopener">&gt; OPEN_FEED (external)</a>`;
+  } catch {
+    el.innerHTML =
+      `<div class="feed-title">LIVE FEED: @${handle}</div>` +
+      `<div class="meta">feed unavailable</div>` +
+      `<a class="feed-out" href="${outUrl}" target="_blank" rel="noopener">&gt; OPEN_FEED (external)</a>`;
+  }
+}
+
+function escapeHtml(s=""){
+  return s.replace(/[&<>"']/g, (c) => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c]));
+}
+
+// ---- Optional: ASCII scaling (only if your CSS isn't enough) ----
+function fitAsciiTitle(){
+  if (!asciiTitle) return;
+
+  const wrap = asciiTitle.parentElement;
   if (!wrap) return;
 
-  // reset first
-  el.style.transform = "scale(1)";
-  wrap.style.height = "auto";
+  // reset
+  asciiTitle.style.transform = "scale(1)";
+  asciiTitle.style.transformOrigin = "left top";
 
-  requestAnimationFrame(() => {
-    const wrapW = wrap.clientWidth;
-    const elW = el.scrollWidth;
+  const wrapW = wrap.clientWidth;
+  const elW = asciiTitle.scrollWidth;
 
-    const scale = elW > 0 ? Math.min(1, wrapW / elW) : 1;
-    el.style.transform = `scale(${scale})`;
+  const scale = (elW > 0) ? Math.min(1, wrapW / elW) : 1;
+  asciiTitle.style.transform = `scale(${scale})`;
 
-    wrap.style.height = `${el.scrollHeight * scale}px`;
-  });
+  // lock wrap height so scaling doesn't collapse the layout
+  wrap.style.height = `${asciiTitle.scrollHeight * scale}px`;
 }
-
-function setupShareLinks() {
-  const bsky = document.getElementById("shareBsky");
-  const x = document.getElementById("shareX");
-  const nativeBtn = document.getElementById("shareNative");
-
-  if (!bsky && !x && !nativeBtn) return;
-
-  // Avoid sharing localhost / file:// during dev
-  const isDev =
-    location.hostname === "localhost" ||
-    location.hostname === "127.0.0.1" ||
-    location.protocol === "file:";
-
-  const shareUrl = isDev ? "https://dumpthis.sh" : window.location.href;
-
-  // BLUESKY: newlines are fine
-  const bskyText =
-    "JOIN_RESISTANCE // dumpthis.sh\n" +
-    "They aren’t preserving us. They are feeding on us.\n" +
-    "READ: MAR00N\n" +
-    shareUrl;
-
-  // X: keep it tighter (X often collapses newlines anyway)
-  const xText =
-    "JOIN_RESISTANCE // dumpthis.sh — They aren’t preserving us. They are feeding on us. READ: MAR00N";
-
-  if (bsky) {
-    bsky.href =
-      "https://bsky.app/intent/compose?text=" +
-      encodeURIComponent(bskyText);
-  }
-
-  if (x) {
-    x.href =
-      "https://x.com/intent/post?text=" +
-      encodeURIComponent(xText) +
-      "&url=" +
-      encodeURIComponent(shareUrl);
-  }
-
-  if (nativeBtn) {
-    nativeBtn.addEventListener("click", async () => {
-      try {
-        if (navigator.share) {
-          await navigator.share({
-            title: "dumpthis.sh // JOIN_RESISTANCE",
-            text: xText,
-            url: shareUrl
-          });
-          return;
-        }
-
-        await navigator.clipboard.writeText(shareUrl);
-        nativeBtn.textContent = "[✓] COPIED";
-        setTimeout(() => (nativeBtn.textContent = "[↗] SHARE"), 1200);
-      } catch (err) {
-        console.warn("Share failed:", err);
-      }
-    });
-  }
-}
-
-window.addEventListener("load", setupShareLinks);
-
-window.addEventListener("load", () => {
-  fitAsciiTitle();
-  setTimeout(typeLine, 500);
-});
-
-setTimeout(fitAsciiTitle, 50);
-setTimeout(fitAsciiTitle, 250);
 
 window.addEventListener("resize", fitAsciiTitle);
+
+// Start the boot
+window.addEventListener("load", () => {
+  // hide prompt until boot completes
+  if (promptLine){
+    promptLine.hidden = true;
+    promptLine.setAttribute("aria-hidden", "true");
+    promptLine.classList.remove("is-live");
+  }
+
+  fitAsciiTitle();
+  bootTimer = setTimeout(typeNext, PACE.startDelay);
+});

@@ -173,7 +173,7 @@ p { margin-bottom: 15px; max-width: 800px; }
   position: relative;
 }
 
-.resistance-cmd .prompt::after{
+#promptLine .prompt-label::after{
   content: "▍";
   margin-left: 6px;
   opacity: .9;
@@ -195,6 +195,46 @@ p { margin-bottom: 15px; max-width: 800px; }
   gap: 10px;
 }
 
+.live-feed{
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(224,224,224,.25);
+  color: rgba(224,224,224,.92);
+  font-size: .85rem;
+  line-height: 1.45;
+}
+
+.live-feed .feed-title{
+  color: rgba(255,176,0,.85);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.live-feed .post{
+  margin: 0 0 10px 0;
+}
+
+.live-feed .meta{
+  color: rgba(224,224,224,.55);
+  font-size: .75rem;
+  margin-top: 2px;
+}
+
+.live-feed .feed-out{
+  display: inline-block;
+  margin-top: 8px;
+  color: rgba(255,176,0,.78);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,176,0,.18);
+}
+
+.live-feed .feed-out:hover{
+  color: rgba(255,176,0,.92);
+  border-bottom-color: rgba(255,176,0,.32);
+}
+
+
 .key{
   appearance: none;
   background: rgba(255,176,0,.06);
@@ -215,6 +255,21 @@ p { margin-bottom: 15px; max-width: 800px; }
   border-color: rgba(255,176,0,.52);
   background: rgba(255,176,0,.10);
 }
+
+/* Prompt is hidden until JS reveals it */
+#promptLine[hidden] { display: none; }
+
+#promptLine{
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+#promptLine.is-live{
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 /* Typing output */
 #output { white-space: pre-wrap; }

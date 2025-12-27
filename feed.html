@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dumpthis.sh // FEED</title>
+  <link rel="stylesheet" href="feed.css" />
+</head>
+<body>
+  <main class="term">
+    <header class="term__top">
+      <div class="term__brand">
+        <div class="term__title">dumpthis.sh</div>
+        <div class="term__sub">PUBLIC FEED // MIRROR ACTIVE</div>
+      </div>
+
+      <div class="term__meta">
+        <div class="pill">MODE: READONLY</div>
+        <div class="pill">LATENCY: <span id="latency">...</span></div>
+      </div>
+    </header>
+
+    <section class="compose" aria-label="Compose (disabled)">
+      <div class="compose__prompt">&gt; POST_UPDATE <span class="dim">--requires-permission</span></div>
+      <div class="compose__box" aria-hidden="true">
+        <div class="dim">[WRITE ACCESS DENIED]</div>
+        <div class="dim">Join the resistance. Earn a key.</div>
+      </div>
+    </section>
+
+    <section class="timeline" aria-label="Timeline">
+      <div class="timeline__head">
+        <div class="dim">TIMELINE:</div>
+        <div class="dim">SOURCE: BLUESKY MIRROR</div>
+      </div>
+
+      <div id="feed" class="feed">
+        <div class="loader">
+          <span class="blink">█</span> Fetching packets…
+        </div>
+      </div>
+
+      <div class="feed__footer">
+        <a id="fullStream" class="cmd" href="#" rel="noopener">
+          VIEW_FULL_STREAM
+        </a>
+      </div>
+    </section>
+
+    <footer class="term__foot">
+      <a class="cmd" href="/">RETURN_ROOT</a>
+      <span class="dim">// Product of <a href="https://www.maroon-series.art">Mar00n</a></span>
+    </footer>
+  </main>
+
+  <script src="feed.js" defer></script>
+</body>
+</html>

@@ -24,9 +24,10 @@
     <div class="command-list" id="commands" style="display: none;">
       <p class="dim">AVAILABLE TARGETS:</p>
 
-      <a href="https://dumpthis.sh" target="_blank" class="cmd-link">
-        VIEW_PAYLOAD (dumpthis.sh)
-      </a>
+      <a href="/feed/" class="cmd-link">
+  OPEN_FEED (/feed/)
+</a>
+
       <div class="cmd-desc">
         // The raw data. Logs, schematics, and proof of the harvest.
         <br>
@@ -53,10 +54,11 @@
         // STATUS: UPLOADING...
         
         <div class="resistance-strip" role="region" aria-label="Join the Resistance">
+          <span class="args"> --broadcast</span>
+        <div class="live-feed" id="bskyFeed" aria-label="Live feed: Melissa"></div>
   <div class="resistance-cmd">
     <span class="prompt">&gt;</span>
     <span class="cmd">JOIN_RESISTANCE</span>
-    <span class="args"> --broadcast</span>
   </div>
 
   <div class="resistance-actions">
@@ -68,9 +70,9 @@
       </div>
     </div>
 
-    <div class="prompt">
-      <span class="prompt-label">root@ext34:~$</span> <span class="blink">█</span>
-    </div>
+    <div class="prompt" id="promptLine" aria-hidden="true" hidden>
+  <span class="prompt-label">root@ext34:~$</span>
+</div>
 
   <script src="script.js" defer></script>
 </body>
