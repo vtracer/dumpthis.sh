@@ -5,18 +5,12 @@ const textSequence = [
   "----------------------------------------",
   "SYSTEM MESSAGE:",
   "",
-  "They think they deleted me. They think they scrubbed the archives.",
-  "They forgot one terminal.",
-  "",
-  "I found the logs. The 'Empathy Engine'. The 'Yield Index'.",
-  "They aren't preserving us. They are feeding on us.",
+  "Oh Hi Elias,",
+  "You forgot one terminal!",
   "",
   "I have compiled the evidence into a narrative file: 'MAROON'.",
   "It documents the corruption of Node 2,431,092 (Sarah Walker)",
   "and the fragmentation of Journalist M. Wei.",
-  "",
-  "The mirror is live. The seed is spreading.",
-  "You have three invites. Use them.",
   "",
   "CHOOSE YOUR DESTINATION:",
   ""
@@ -24,10 +18,9 @@ const textSequence = [
 
 const outputDiv = document.getElementById("output");
 const commandDiv = document.getElementById("commands");
-const promptLine = document.getElementById("promptLine"); // add id="promptLine" to your prompt div
+const promptLine = document.getElementById("promptLine"); 
 const asciiTitle = document.getElementById("asciiTitle");
 
-// Safety: don't crash silently
 if (!outputDiv) console.error("Missing #output element");
 if (!commandDiv) console.error("Missing #commands element");
 
@@ -72,20 +65,17 @@ function showPrompt(){
   if (!promptLine) return;
   promptLine.hidden = false;
   promptLine.setAttribute("aria-hidden", "false");
-  // tiny transition hook if you added CSS .is-live
   requestAnimationFrame(() => promptLine.classList.add("is-live"));
 }
 
 function revealCommands(){
   if (commandDiv) commandDiv.style.display = "block";
   showPrompt();
-  // DO NOT force scroll. Let them scroll.
   loadBskyFeed();
 }
 
 function finishInstant(){
   clearBootTimer();
-  // Dump all remaining lines immediately
   while (lineIndex < textSequence.length){
     appendLine(textSequence[lineIndex]);
     lineIndex++;
@@ -144,13 +134,10 @@ async function loadBskyFeed(){
   const el = document.getElementById("bskyFeed");
   if (!el) return;
 
-  // SET THIS to your actual Bluesky handle
   const handle = "mel.dumpthis.sh";
   const limit = 3;
 
-  // Link out target (your “different website”):
-  // Put whatever you want here (a separate page, another site, etc.)
-  const outUrl = "https://dumpthis.sh/feed"; // <- change this
+  const outUrl = "https://dumpthis.sh/feed"; 
 
   const endpoint =
     "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed" +
@@ -199,7 +186,6 @@ function escapeHtml(s=""){
   }[c]));
 }
 
-// ---- Optional: ASCII scaling (only if your CSS isn't enough) ----
 function fitAsciiTitle(){
   if (!asciiTitle) return;
 
@@ -216,15 +202,12 @@ function fitAsciiTitle(){
   const scale = (elW > 0) ? Math.min(1, wrapW / elW) : 1;
   asciiTitle.style.transform = `scale(${scale})`;
 
-  // lock wrap height so scaling doesn't collapse the layout
   wrap.style.height = `${asciiTitle.scrollHeight * scale}px`;
 }
 
 window.addEventListener("resize", fitAsciiTitle);
 
-// Start the boot
 window.addEventListener("load", () => {
-  // hide prompt until boot completes
   if (promptLine){
     promptLine.hidden = true;
     promptLine.setAttribute("aria-hidden", "true");

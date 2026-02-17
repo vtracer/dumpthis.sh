@@ -1,0 +1,94 @@
+/* Retro hacker wiki — 1980s terminal aesthetic */
+:root{
+  --bg:#000000;
+  --phosphor:#d4bbff; /* purple lavender */
+  --dim: rgba(212,187,255,0.5);
+  --muted: #ffffff;
+  --link: #c084fc; /* purple for links */
+  --mono: "Courier New", Courier, monospace;
+}
+
+html,body{ height:100%; }
+body{
+  background:var(--bg);
+  color:var(--muted);
+  font-family:var(--mono);
+  padding:28px;
+  -webkit-font-smoothing: none;
+}
+
+/* container that mimics old CRT terminal window */
+.terminal-window{
+  max-width:920px;
+  margin:0 auto;
+  padding:18px;
+  border:2px solid var(--phosphor);
+  background:transparent;
+  box-shadow:0 0 40px rgba(212,187,255,0.03);
+}
+
+.ascii-art{ font-size:11px; line-height:10px; white-space:pre; color:var(--phosphor); margin:0 0 14px }
+
+.title-row{ display:flex; justify-content:space-between; align-items:center; gap:12px }
+.title-row h1{ font-size:1.2rem; margin:0; color:var(--phosphor) }
+.title-row .tagline{ color:var(--muted); font-size:0.9rem }
+
+/* VAULTLINE special font */
+.vaultline-title{
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+/* content columns */
+.content{ display:flex; gap:18px; align-items:flex-start }
+.main-col{ flex:1 }
+.side-col{ width:260px }
+
+/* Lists like old BBS/wikis */
+.recent-list{ list-style:none; padding:0; margin:10px 0 }
+.recent-list li{ padding:6px 0; border-bottom:1px dashed rgba(212,187,255,0.08); }
+.recent-list li:last-child{ border-bottom:none }
+
+/* Links: soft blue with subtle glow on hover */
+a{ color:var(--link); text-decoration:none }
+a:hover{ color:var(--link); text-shadow:0 0 6px rgba(192,132,252,0.3) }
+
+/* Small metadata */
+.meta{ color:var(--dim); font-size:0.88rem }
+
+/* Proper names get a small color pop (soft cyan) */
+.proper-name{ color:#67e8f9; font-weight:700 } /* people - cyan */
+.place{ color:#fb923c; font-weight:700 } /* locations - amber */
+.corp{ color:#a3e635; font-weight:700 } /* organizations - lime */
+
+/* Links match their content type color */
+a.proper-name, a .proper-name{ color:#67e8f9 }
+a.proper-name:hover, a:has(.proper-name):hover{ text-shadow:0 0 6px rgba(103,232,249,0.4) }
+
+a.place, a .place{ color:#fb923c }
+a.place:hover, a:has(.place):hover{ text-shadow:0 0 6px rgba(251,146,60,0.4) }
+
+a.corp, a .corp{ color:#a3e635 }
+a.corp:hover, a:has(.corp):hover{ text-shadow:0 0 6px rgba(163,230,53,0.4) }
+
+/* Search box minimal */
+.search{ display:flex; gap:6px; margin-top:10px }
+.search input{ flex:1; padding:8px; background:transparent; border:1px solid rgba(212,187,255,0.08); color:var(--phosphor) }
+.search button{ padding:8px 10px; background:transparent; border:1px solid rgba(212,187,255,0.1); color:var(--phosphor); cursor:pointer }
+
+/* Make small images look pixelated */
+img{ image-rendering: pixelated; max-width:100%; height:auto }
+
+/* Dossier data lists */
+.data-list{ list-style:none; padding:0; margin:10px 0 }
+.data-list li{ padding:4px 0; border-bottom:1px dashed rgba(212,187,255,0.06); }
+.data-list li:last-child{ border-bottom:none }
+
+blockquote{ margin:10px 0; padding:10px; border-left:2px solid rgba(212,187,255,0.1); font-style:italic; color:var(--dim) }
+
+h3{ color:var(--phosphor); font-size:1rem; margin-top:16px; margin-bottom:8px }
+h2{ color:var(--phosphor); margin-top:14px; margin-bottom:8px }
+p{ color:var(--muted) }
+
+@media (max-width:760px){ .content{ flex-direction:column } .side-col{ width:100% } }

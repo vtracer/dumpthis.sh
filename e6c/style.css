@@ -1,0 +1,38 @@
+:root{
+  --bg:#040404;
+  --accent:#33ff66;
+  --muted:#97a19a;
+  --mono: "Courier New", Courier, monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#000 0%, #07120a 100%);
+  color:var(--muted);
+  font-family:var(--mono);
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px;margin:6vh auto;padding:28px}
+.brand h1{color:var(--accent);margin:0;font-size:2.2rem;letter-spacing:1px}
+.lead{margin:6px 0 18px;color:#b6d8c0}
+.sig{display:flex;align-items:center;gap:18px}
+#symbol{font-size:1.8rem;color:var(--accent);background:#001100;padding:10px 14px;border-radius:6px;display:inline-block}
+.slogan{margin:0;color:#fff;font-weight:700;letter-spacing:1px}
+.about{margin-top:20px;background:rgba(0,0,0,0.2);padding:14px;border-radius:6px}
+.about p{margin:0 0 10px}
+.method{color:var(--accent)}
+.meta{margin-top:26px;font-size:0.9rem;color:#89978f}
+.note{font-size:0.85rem;color:#7a8b80}
+
+/* simple glitch effect */
+.glitch{position:relative}
+.glitch::before,
+.glitch::after{
+  content:attr(data-text);
+  position:absolute;left:0;top:0;
+  mix-blend-mode:screen;opacity:0.9}
+.glitch::before{color:#ff5577;transform:translate(-1px,-1px)}
+.glitch::after{color:#66ccff;transform:translate(1px,1px)}
+
+@media (max-width:520px){.wrap{padding:18px}}

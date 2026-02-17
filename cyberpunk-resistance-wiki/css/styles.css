@@ -1,0 +1,31 @@
+body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+}
+
+.proper-name {
+    color: #e74c3c; /* Red for proper names */
+}
+
+.noun {
+    color: #3498db; /* Blue for nouns */
+}
+
+.place {
+    color: #27ae60; /* Green for places */
+}
+
+a {
+    color: #2980b9; /* Link color */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
